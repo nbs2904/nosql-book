@@ -6,7 +6,7 @@ This document is a collection of reports as a partial exam of the course "NoSQL"
 
 First you need to install a local latex environment (e.g. [TeX Live Full](https://www.tug.org/texlive/)). You might also have to install [make](https://www.gnu.org/software/make/).
 
-To build the document, run `make` in the root directory of this repository. This will create a `out/latex` directory with the compiled document (`dokumentation.pdf`).
+To build the document, run `make` in the root directory of this repository. This will create a `out/latex` directory with the compiled document (`dokumentation.pdf`). Alternatively, it will be automatically build by `latex-workshop`.
 
 ## Contributing
 

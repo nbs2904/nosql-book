@@ -1,4 +1,4 @@
-.PHONY: prepare build
+.PHONY: clean build
 .DEFAULT_GOAL := build
 
 clean:
