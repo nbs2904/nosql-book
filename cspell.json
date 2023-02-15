@@ -1,0 +1,4 @@
+{
+  "language": "en, de-de, lorem-ipsum",
+  "ignorePaths": [".git", ".vscode"]
+}

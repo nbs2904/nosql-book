@@ -140,42 +140,44 @@
 % Literaturverweise (sowohl deutsch als auch englisch)
 \iflang{de}{%
   % APA-Style
-  % \usepackage[
-  %   backend=biber,
-  %   autocite=inline,
-  %   style=apa,
-  %   dashed=false
-  % ]{biblatex}
-  % \setlength{\bibparsep}{\parskip}
-  % \DeclareLanguageMapping{ngerman}{ngerman-apa}
+  \usepackage[
+    backend=biber,
+    autocite=inline,
+    style=apa,
+    dashed=false,
+    sortlocale=en_US,
+  ]{biblatex}
+  \setlength{\bibparsep}{\parskip}
+  \DeclareLanguageMapping{ngerman}{ngerman-apa}
 
   % IEEE-Style
-  \usepackage[
-    backend=biber,		% empfohlen. Falls biber Probleme macht: bibtex
-    bibwarn=true,
-    bibencoding=utf8,	% wenn .bib in utf8, sonst ascii
-    sortlocale=de_DE,
-    style=\zitierstil,
-  ]{biblatex}
+  % \usepackage[
+  %   backend=biber,		% empfohlen. Falls biber Probleme macht: bibtex
+  %   bibwarn=true,
+  %   bibencoding=utf8,	% wenn .bib in utf8, sonst ascii
+  %   sortlocale=de_DE,
+  %   style=\zitierstil,
+  % ]{biblatex}
 }
 \iflang{en}{%
   % APA-Style
-  % \usepackage[
-  %   backend=biber,
-  %   autocite=inline,
-  %   style=apa,
-  %   dashed=false
-  % ]{biblatex}
-  % \setlength{\bibparsep}{\parskip}
+  \usepackage[
+    backend=biber,
+    autocite=inline,
+    style=apa,
+    dashed=false,
+    sortlocale=en_US,
+  ]{biblatex}
+  \setlength{\bibparsep}{\parskip}
 
   % IEEE-Style
-  \usepackage[
-    backend=biber,		% empfohlen. Falls biber Probleme macht: bibtex
-    bibwarn=true,
-    bibencoding=utf8,	% wenn .bib in utf8, sonst ascii
-    sortlocale=en_US,
-    style=\zitierstil,
-  ]{biblatex}
+  % \usepackage[
+  %   backend=biber,		% empfohlen. Falls biber Probleme macht: bibtex
+  %   bibwarn=true,
+  %   bibencoding=utf8,	% wenn .bib in utf8, sonst ascii
+  %   sortlocale=en_US,
+  %   style=\zitierstil,
+  % ]{biblatex}
 
   \DeclareLanguageMapping{american}{american-apa}
 }
@@ -213,10 +215,10 @@
 
 % APA-Style
 % Abstände für "Caption" von Bilder und Tabellen
-% \DeclareCaptionLabelSeparator*{spaced}{\\[2ex]}
-% \captionsetup[table]{labelfont=bf,textfont=it,format=plain,justification=justified,singlelinecheck=false,labelsep=spaced,skip=0pt}
-% \captionsetup[figure]{labelfont=bf,textfont=it,format=plain,justification=justified,singlelinecheck=false,labelsep=spaced,skip=0pt}
-% \setlength{\belowcaptionskip}{\parskip}
+\DeclareCaptionLabelSeparator*{spaced}{\\[2ex]}
+\captionsetup[table]{labelfont=bf,textfont=it,format=plain,justification=justified,singlelinecheck=false,labelsep=spaced,skip=0pt}
+\captionsetup[figure]{labelfont=bf,textfont=it,format=plain,justification=justified,singlelinecheck=false,labelsep=spaced,skip=0pt}
+\setlength{\belowcaptionskip}{\parskip}
 
 % Buchstaben für Anhang
 \def\appendix{%
@@ -242,3 +244,25 @@
   \renewcommand{\thechapter}{\Alph{chapter}}%  
   \renewcommand{\chaptername}{\appendixname}}
 \makeatother
+
+% ===== INDIVIDUAL AUTHORS PER CHAPTER =====
+% Source: https://tex.stackexchange.com/a/156865
+\newcommand\chapterauthor[1]{\authortoc{#1}\printchapterauthor{#1}}
+\WithSuffix\newcommand\chapterauthor*[1]{\printchapterauthor{#1}}
+
+\makeatletter
+\newcommand{\printchapterauthor}[1]{%
+  {\parindent0pt\vspace*{-25pt}%
+  \linespread{1.1}\large#1%
+  \par\nobreak\vspace*{35pt}}
+  \@afterheading%
+}
+\newcommand{\authortoc}[1]{%
+  \addtocontents{toc}{\vskip-10pt}%
+  \addtocontents{toc}{%
+    \protect\contentsline{chapter}%
+    {\hskip1.3em\mdseries\protect\scriptsize#1}{}{}}
+  \addtocontents{toc}{\vskip5pt}%
+}
+\makeatother
+% ==========================================

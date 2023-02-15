@@ -1,9 +1,9 @@
 {
-    "makefile.extensionOutputFolder": "./.vscode",
-    "grammarly.files.include": [
-        "**/README.md",
-        "**/readme.md",
-        "**/*.txt",
-        "**/*.tex"
-    ]
+  "makefile.extensionOutputFolder": "out/make",
+  "latex-workshop.latex.autoBuild.run": "never",
+  "latex-workshop.latex.outDir": "out/latex",
+  "editor.formatOnSave": true,
+  "[tex]": {
+    "editor.defaultFormatter": "James-Yu.latex-workshop"
+  }
 }
