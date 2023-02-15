@@ -1,5 +1,8 @@
+.github/ @felixhoffmnn
+.vscode/ @felixhoffmnn
 ads/ @felixhoffmnn
 lang/ @felixhoffmnn
 
 dokumentation.tex @felixhoffmnn
 einstellungen.tex @felixhoffmnn
+Makefile @felixhoffmnn
