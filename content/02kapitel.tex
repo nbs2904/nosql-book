@@ -17,8 +17,17 @@ continously. \cite{DatabaseofDatabases.11032023} Since this first version, Hazel
 among them Intel and IBM, the former of which collaborates with Hazelcast on the optimization of in-memory computing solution, while 
 the later has a joint initiative with Hazelcast to create and optimize cloud-native applications. \cite{HazelcastPartners.270122}
 \subsection{Capabilities} \label{subsec:capabilitiesHazelcast}
+Hazelcast has several features which make it stand out from other solutions to store data, the first of which is how easy it is 
+to set Hazelcast up and get it running. This is due to the fact that Hazelcast is self-discovering and self-clustering as Hazelcast's 
+Clusters are formed from different nodes which are all functionally the same, operate in a peer-to-peer fashion and are responsible for 
+certain data to which they are assigned by the oldest node. \cite{Johns.2015} \newline
+Another important feature of Hazelcast is the fact that it persists data completely in memory, which makes Hazelcast very fast and efficient.
+While this is one of the often cited advantages of Hazelcast, it also has the disadvantage of the data being lost if nodes are shut down, which 
+is usually counteracted by having copies of data on several different node, which makes the failure of a single node less critical. If more than 
+one node fails at the same time however data can already be lost as the standard count of backup nodes is only 1. \cite{Johns.2015} \newline
 
-
+Hazelcast is offering a variety of ways to store data, which include standard utility collections like maps, lists, sets and queues as well as 
+specialized collections like Multi-Maps, which allow for multiple values per key. \cite{Johns.2015}
 \subsection{Fields of Application} \label{subsec:fieldsOfApplicationHazelcast}
 
 
