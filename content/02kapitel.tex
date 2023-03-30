@@ -22,11 +22,19 @@ to set Hazelcast up and get it running. This is due to the fact that Hazelcast i
 Clusters are formed from different nodes which are all functionally the same, operate in a peer-to-peer fashion and are responsible for 
 certain data to which they are assigned by the oldest node. \cite{Johns.2015} \newline
 Another important feature of Hazelcast is the fact that it persists data completely in memory, which makes Hazelcast very fast and efficient.
-While this is one of the often cited advantages of Hazelcast, it also has the disadvantage of the data being lost if nodes are shut down, which 
-is usually counteracted by having copies of data on several different node, which makes the failure of a single node less critical. If more than 
-one node fails at the same time however data can already be lost as the standard count of backup nodes is only 1. \cite{Johns.2015} \newline
+While this is one of the often cited advantages of Hazelcast, it also has the disadvantage of the data being lost if nodes are shut down. To counteract this, Hazelcast usually has copies of data on several different node, which makes the failure of a single node less critical as the data doesn't get completely lost and can be immediately saved as a backup 
+in another node. This is depicted in \autoref{fig:hazelcast:example_partitioning}, which shows how the overall data is partitioned into three parts, each of which gets saved by two of the tree nodes. Thus, only if more than 
+one node fails at exactly the same time data can be lost as the standard count of backup nodes is only 1. This can also be increased though if users want to 
+ensure that their data won't get lost, although this requires more node to be operated at the same time. \cite{Johns.2015} \newline
 
-Hazelcast is offering a variety of ways to store data, which include standard utility collections like maps, lists, sets and queues as well as 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=16cm]{images/hazelcast_partitioning.png}
+    \caption[Example for partitioning in Hazelcast]{Example for partitioning in Hazelcast, \cite{Johns.2015}}
+    \label{fig:hazelcast:example_partitioning}
+\end{figure}
+
+Another capability of Hazelcast is its diverse offering of ways to store data, which include standard utility collections like maps, which enables users to save data as key-value pairs, lists, sets and queues as well as 
 specialized collections like Multi-Maps, which allow for multiple values per key. \cite{Johns.2015}
 \subsection{Fields of Application} \label{subsec:fieldsOfApplicationHazelcast}
 
