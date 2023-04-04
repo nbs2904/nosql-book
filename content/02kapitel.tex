@@ -20,12 +20,12 @@ the later has a joint initiative with Hazelcast to create and optimize cloud-nat
 Hazelcast has several features which make it stand out from other solutions to store data, the first of which is how easy it is 
 to set Hazelcast up and get it running. This is due to the fact that Hazelcast is self-discovering and self-clustering as Hazelcast's 
 Clusters are formed from different nodes which are all functionally the same, operate in a peer-to-peer fashion and are responsible for 
-certain data to which they are assigned by the oldest node\parencite{Johns.2015}. \newline
+certain data to which they are assigned by the oldest node \parencite{Johns.2015}. \newline
 Another important feature of Hazelcast is the fact that it persists data completely in memory, which makes Hazelcast very fast and efficient.
 While this is one of the often cited advantages of Hazelcast, it also has the disadvantage of the data being lost if nodes are shut down. To counteract this, Hazelcast usually has copies of data on several different node, which makes the failure of a single node less critical as the data doesn't get completely lost and can be immediately saved as a backup 
 in another node. This is depicted in \autoref{fig:hazelcast:example_partitioning}, which shows how the overall data is partitioned into three parts, each of which gets saved by two of the tree nodes. Thus, only if more than 
 one node fails at exactly the same time data can be lost as the standard count of backup nodes is only 1. This can also be increased though if users want to 
-ensure that their data won't get lost, although this requires more node to be operated at the same time\parencite{Johns.2015}. \newline
+ensure that their data won't get lost, although this requires more nodes to be operated at the same time \parencite{Johns.2015}. \newline
 
 \begin{figure}[H]
     \centering
@@ -47,20 +47,19 @@ its automatic clustering\parencite{Johns.2015}. \newline
 
 \section{Implementation} \label{sec:implementationHazelcast}
 
-In the second section of this chapter, a hazelcast cluster will be set up, including a cluster management 
+In the {\color{red}second} section of this chapter, a hazelcast cluster will be set up, including a cluster management 
 instance. Then, some capabilities are demonstrated using a simple dataset of relational data, highlighting 
 the differences between a traditional SQL database.
 
 \subsection{Requirements} \label{subsec:requirementsHazelcast}
 
-To deploy a hazelcast cluster on a local machine, Docker is used, utilising the existing images, 
-\enquote{hazelcast/hazelcast} \textcite{Hazelcast.Docker.Hazelcast} and \enquote{hazelcast/management-center} 
-\textcite{Hazelcast.Docker.ManagementCenter}. 
+To deploy a hazelcast cluster on a local machine, \textcite{Hazelcast.Docker.Hazelcast, Hazelcast.Docker.ManagementCenter} is used, utilising the existing images, 
+\enquote{hazelcast/hazelcast}  and \enquote{hazelcast/management-center}. 
 Following the official documentation, two member instances are set up alongside a single cluster manager, 
 simulating a cluster environment. The cluster manager is then accessible via port 8080, providing status 
 information about the cluster members. To fully interact with the cluster, it is necessary to install a 
-client. Hazelcast supports a handful of open-source APIs in multiple programming languages. 
-\textcite{Hazelcast.Clients} Within the scope of this document, the python client is 
+client. \textcite{Hazelcast.Clients} supports a handful of open-source APIs in multiple programming languages. 
+Within the scope of this document, the python client is 
 used in the following sections to demonstrate data import and access. The client can get installed with pip 
 or any preferred python package manager.
 
@@ -70,42 +69,42 @@ Once everything is ready, one can import the data into the hazelcast cluster. Th
 a simple relational data model, which will serve as an example
 
 \begin{figure}[H]
-    \caption{Hazelcast Implementation Example} \label{fig:hazelcast.implementation.tables}
     \includegraphics[width=1\textwidth]{images/hazelcast.implementation.tables.png}
+    \caption{Hazelcast Implementation Example} \label{fig:hazelcast.implementation.tables}
     \small\textit{Image generated with \href{https://dbdiagram.io/}{dbdiagram.io}}
 \end{figure}
 
 \noindent
 The table on the left contains only one attribute, the primary key. Depending on the requirements, 
-there are two possible data structures to represent this table in a key-value store. The "Set", similar to 
+there are two possible data structures to represent this table in a key-value store. 
+The \textcite{Hazelcast.DataStructure.Set}, similar to 
 the built-in python data type, is a list of elements. It disallows duplicates, imitating the primary 
-key constraint of a relational database. However, as a non-partitioned data structure 
-\textcite{Hazelcast.DataStructure.Set}, 
+key constraint of a relational database. 
+However, as a non-partitioned data structure, 
 all elements of a single set are kept on one cluster member. Thus, a Set should not be used with large sets. 
-The second structure is the "Map". It is a distributed structure and split between single members. 
-Additionally, based on the Java Map \textcite{Hazelcast.DataStructure.Map}, its ordinary time 
-complexity is quite efficient. \textcite{Hazelcast.Java.Map} 
-Therefore, a Map is used to represent the "Allergene" table. However, a synthetic key is required to 
-insert and access values. An incremental integer could provide this, as shown in the figure below.
+The second structure is the \textcite{Hazelcast.DataStructure.Map}. It is a distributed structure and split between single members. 
+Additionally, based on the Java Map, its ordinary time 
+complexity is quite efficient, as explained by \textcite{Hazelcast.Java.Map} 
+Therefore, a Map is used to represent the \enquote{Allergene} table. 
+However, a synthetic key is required to insert and access values. 
+An incremental integer could provide this, as shown in the figure below.
 
 
 \begin{figure}[H]
-    \caption{Hazelcast Implementation Example} \label{fig:hazelcast.allergens.map}
     \includegraphics[width=1\textwidth]{images/hazelcast.allergens.map.png}
-    \small\textit{Image generated with \href{https://dbdiagram.io/}{dbdiagram.io}}
+    \caption{Hazelcast Allergens Map} \label{fig:hazelcast.allergens.map}
 \end{figure}
 
 Not only can Map store primitive values such as integers or strings, but also more complex ones, for 
 example, JSON Objects. The python client can readily encode JSON Objects and store them on the cluster, 
-which will be used for the "Products" table.
+which will be used for the \enquote{Products} table.
+\parencite{Hazelcast.PythonClient.HazelcastJsonValue}
 
 \begin{figure}[H]
-    \caption{Hazelcast Implementation Example} \label{fig:hazelcast.products.map}
     \includegraphics[width=1\textwidth]{images/hazelcast.products.map.png}
-    \small\textit{Image generated with \href{https://dbdiagram.io/}{dbdiagram.io}}
+    \caption{Hazelcast Products Map} \label{fig:hazelcast.products.map}
 \end{figure}
 
-\parencite{Hazelcast.PythonClient.HazelcastJsonValue}
 Nevertheless, to insert new values, an application has to keep track of the current integer key and check 
 for duplicates since a map does not enforce unique values. Additionally, as Maps are meant to be flexible, 
 they do not enforce type constraints. Therefore, data validation should be handled by an application before 
@@ -118,27 +117,25 @@ would be possible. Since all allergens are known at the time of creation, the
 list is not updated frequently. However, if the list is regularly updated or contains many elements, it 
 would be required to load all entries on the application side, manipulate it and overwrite the old version 
 on the hazelcast cluster. 
-Thus, hazelcast supports \enquote{MultiMaps}, another distributed key-value data structure that is able to hold 
-multiple values per key, preventing duplicates for one key. \textcite{Hazelcast.DataStructure.MultiMap} 
+Thus, Hazelcast supports \textcite{Hazelcast.DataStructure.MultiMap}, another distributed key-value data structure that is able to hold 
+multiple values per key, preventing duplicates for one key. 
 An example of inserting elements into a MultiMap is shown below.
 
 \begin{figure}[H]
-    \caption{Hazelcast Implementation Example} \label{fig:hazelcast.product_allergens.1.multimap}
     \includegraphics[width=1\textwidth]{images/hazelcast.product_allergens.multimap.1.png}
-    \small\textit{Image generated with \href{https://dbdiagram.io/}{dbdiagram.io}}
+    \caption{Hazelcast Product Allergens MultiMap} \label{fig:hazelcast.product_allergens.1.multimap}
 \end{figure}
 
 \subsection{Data Access} \label{subsec:dataAccessHazelcast}
 
 When it comes to accessing data, problems may occur if the key of a particular entry is unknown or one wants 
 to query an entire map for multiple key-value pairs that fulfil certain conditions. For such use cases, 
-hazelcast offers \enquote{Predicates}, methods similar to SQL to query a cluster. \textcite{Hazelcast.Predicates} 
+hazelcast offers \enquote{Predicates}, methods similar to SQL to query a cluster \parencite{Hazelcast.Predicates}. 
 A small sample of their capabilities is shown below. 
 
 \begin{figure}[H]
-    \caption{Hazelcast Implementation Example} \label{fig:hazelcast.predicates}
     \includegraphics[width=1\textwidth]{images/hazelcast.predicates.png}
-    \small\textit{Image generated with \href{https://dbdiagram.io/}{dbdiagram.io}}
+    \caption{Hazelcast Predicates} \label{fig:hazelcast.predicates}
 \end{figure}
 
 Nonetheless, referring back to the \enquote{produkt\_allergene} table, one might not only want to know all 
@@ -147,9 +144,8 @@ Depending on the use case, it may therefore be useful to create copies of maps a
 to simplify access to data from multiple perspectives. 
 
 \begin{figure}[H]
-    \caption{Hazelcast Implementation Example} \label{fig:hazelcast.product_allergens.2.multimap}
     \includegraphics[width=1\textwidth]{images/hazelcast.product_allergens.multimap.2.png}
-    \small\textit{Image generated with \href{https://dbdiagram.io/}{dbdiagram.io}}
+    \caption{Hazelcast Allergens Product MultiMap} \label{fig:hazelcast.product_allergens.2.multimap}
 \end{figure}
 
 
