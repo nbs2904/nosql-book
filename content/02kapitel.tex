@@ -3,9 +3,13 @@
 \chapter{Hazelcast (Key-Value)} \label{ch:hazelcast}
 \chapterauthor{Nick Schroeder, Maxime Fritzsch, Michelle Mersch}
 
-Exercitation qui duis voluptate do esse aute. Minim deserunt ex minim sunt cupidatat est fugiat in pariatur ullamco. Enim esse voluptate nulla et sunt sint labore non ut eiusmod et. Deserunt laboris ullamco occaecat esse reprehenderit anim. Deserunt aute laboris tempor est occaecat duis in cupidatat.
 
-\section{Introduction} \label{sec:introductionHazelcast}
+In the following chapter, the Hazelcast database management system will be discussed. The first part of the chapter will discuss the history of Hazelcast, 
+its different capabilities like its high performance and scalability as well as its fields of application where those capabilities can be 
+employed to maximum effect. 
+The second part will then focus on the implementation of Hazelcast, including the requirements, the setup of the cluster and the demonstration of 
+some of Hazelcast's capabilities by using Hazelcast with some basic relational data to show how Hazelcast is used. After this, the third part will reflect on the advantages and disadvantages of Hazelcast, explains how the CAP theorem can be 
+applied to Hazelcast and also draw a final conclustion on Hazelcast as a whole.
 
 \section{Fundamentals} \label{sec:fundamentalsHazelcast}
 \subsection{History} \label{subsec:historyHazelcast}
@@ -13,18 +17,18 @@ Hazelcast is a distributed In-Memory Data Grid platform, developed for Java. It 
 which was founded in 2008 by Talip Ozturk and Fuad Malikov \parencite{DatabaseofDatabases.11032023}. The company's headquarters are 
 in Palo Alto, California and it also has two European offices in London and Istanbul\parencite{HazelcastContact.03112022}. \newline
 After its founding in 2008, the company first released an open-source version of Hazelcast in 2009 and has since been updating it 
-continously\parencite{DatabaseofDatabases.11032023}. Since this first version, Hazelcast has been used by many well known companies, 
+continously\parencite{DatabaseofDatabases.11032023}. In the time after this first version, Hazelcast has been used by many well known companies, 
 among them Intel and IBM, the former of which collaborates with Hazelcast on the optimization of in-memory computing solution, while 
 the later has a joint initiative with Hazelcast to create and optimize cloud-native applications\parencite{HazelcastPartners.270122}.
 \subsection{Capabilities} \label{subsec:capabilitiesHazelcast}
 Hazelcast has several features which make it stand out from other solutions to store data, the first of which is how easy it is 
 to set Hazelcast up and get it running. This is due to the fact that Hazelcast is self-discovering and self-clustering as Hazelcast's 
-Clusters are formed from different nodes which are all functionally the same, operate in a peer-to-peer fashion and are responsible for 
+clusters are formed from different nodes which are all functionally the same, operate in a peer-to-peer fashion and are responsible for 
 certain data to which they are assigned by the oldest node\parencite{Johns.2015}. \newline
 Another important feature of Hazelcast is the fact that it persists data completely in memory, which makes Hazelcast very fast and efficient.
 While this is one of the often cited advantages of Hazelcast, it also has the disadvantage of the data being lost if nodes are shut down. To counteract this, Hazelcast usually has copies of data on several different node, which makes the failure of a single node less critical as the data doesn't get completely lost and can be immediately saved as a backup 
-in another node. This is depicted in \autoref{fig:hazelcast:example_partitioning}, which shows how the overall data is partitioned into three parts, each of which gets saved by two of the tree nodes. Thus, only if more than 
-one node fails at exactly the same time data can be lost as the standard count of backup nodes is only 1. This can also be increased though if users want to 
+in another node. This is depicted in \autoref{fig:hazelcast:example_partitioning}, which shows how the overall data is partitioned into three parts, each of which gets saved by two of the three nodes. Thus, only if more than 
+one node fails at exactly the same time data can be lost as the standard count of backup nodes is only 1. This number can be increased though if users want to 
 ensure that their data won't get lost, although this requires more node to be operated at the same time\parencite{Johns.2015}. \newline
 
 \begin{figure}[H]
@@ -34,13 +38,13 @@ ensure that their data won't get lost, although this requires more node to be op
     \label{fig:hazelcast:example_partitioning}
 \end{figure}
 
-Another capability of Hazelcast is its diverse offering of ways to store data, including standard utility collections like lists, sets and queues as well as maps, which enable users to save data as key-value pairs. Additionally to those basic Maps, Hazelcast also offers  
+Another capability of Hazelcast is its diverse offering of ways to store data, including standard utility collections like lists, sets and queues as well as Maps, which enable users to save data as key-value pairs. Additionally to those basic Maps, Hazelcast also offers  
 specialized collections like Multi-Maps, which allow for multiple values per key \parencite{Johns.2015}.
 \subsection{Fields of Application} \label{subsec:fieldsOfApplicationHazelcast}
 
 Hazelcast can be used in numerous different ways, one of which would be to hold data for user sessions, an application that makes sense due to its nature 
 of persisting data only in memory and it thus being well suited for working with temporary data. Furthermore, another application of Hazelcast is 
-running it together with some data store which persists data long term, leading to an increased capacity. Additionally, Hazelcast in general is well 
+running it together with a data store that persists data long term, leading to an increased capacity. Additionally, Hazelcast in general is well 
 suited for applications which require a high performance and elastic scalability as those are both requirements Hazelcast fulfills due to it saving data in memory and 
 its automatic clustering\parencite{Johns.2015}. \newline
 
@@ -153,10 +157,55 @@ to simplify access to data from multiple perspectives.
 \end{figure}
 
 
-
-
 \section{Reflection} \label{sec:reflectionHazelcast}
+
+
 \subsection{Advantages \& Disadvantages} \label{subsec:advantagesDisadvantagesHazelcast}
+
+One of the advantages of Hazelcast is the high availability. Members discover each other automatically and form a cluster. 
+After the cluster is formed, members communicate with each other.  Every cluster member can become inaccessible because of network 
+failure or other events. The other cluster members cooperatively diagnose that state and immediately take over the responsibility of the failed member. Hazelcast can restore the data and provides continuous availability. 
+It also offers distributed implementation of standard collections. These implementations include Maps, Lists, Sets and others. Also, 
+it has a broadcast messaging system that works with publish and subscribe models. This communication works with real time at high speed. 
+Hazelcasts SQL service lets you query static and streaming data. Static data can be loaded from sources to transform and analyze it. 
+Furthermore it is possible to load an query real time streaming data as it is being generated.
+Another marked feature is that it has no dependency on disk storage. It keeps all its operational state in the dynamic random access 
+memory of the cluster. Hazelcast can conduct really quick readings and updates and save everything in memory.
+Hazelcast is also a java application with no external dependencies which offers the same APIs and interfaces as the Java util package. 
+But there are also some disadvantages of Hazelcast. The memory sharing system can be difficult to implement and understand in the 
+beginning. Working with the Hazelcast database is something you have to get used to. Once you understand how everything works, it is easy to use. 
+Another disadvantage is running Hazelcast in an virtual environment. This could create a potential time adjustment and difference 
+between the CPU and the virtual environment´s adjusted system clock. When the differences go beyond certain ties, Hazelcast usually 
+initiates a disconnect to solve this problem. \parencite{Oguejiofor.05.10.2022}
+
 \subsection{CAP Theorem} \label{subsec:capTheoremHazelcast}
+
+The CAP Theorem is a fundamental concept in distributed system. It explains, that it is impossible for 
+this kind of system to provide all three of the following properties from Brewer \parencite[S.~23]{Brewer.2012}:
+\begin{enumerate}
+    \item Consistency: Consistency of the saved data. All clients are able to get the same data at the same time. Every read operation of the systems should return the most recently changed data.
+    \item Availability: Every not failing node should return a response for all read and write requests in a reasonable time frame.
+    \item Partition tolerance: The system continues to work even when the network partitions.
+\end{enumerate}
+
+\noindent
+According to this theorem, a distributed system can only provide two of these guarantees at the same 
+time. System designers have to choose which two of these properties they want to prioritize for their 
+application. The theorem has implications for a wide variety of distributed systems, including databases, 
+storage systems and others. \parencite[S.~1]{Brewer.2017}
+Hazelcast as an AP system delivers availability and partition tolerance at the expense of consistency. 
+The data of all members will remain available even if there is a communication breakdown. 
+However, some members affected by the partition might return older versions of the data than others. 
+After a partition has been resolved, Hazelcast syncs all members to resolve any inconsistencies in the 
+system. The data structures exposed by Hazelcast are all AP data structures. 
+But there is also a function  that provides CP structures, which are built on the raft consensus algorithm. 
+As a CP system, Hazelcast  delivers consistency and partition tolerance at the expense of availability. 
+Whenever a partition occurs between existing members, Hazelcast makes the non -consistent member 
+unavailable until the partition is resolved. \parencite{Hazelcast.05.04.2023}
+
 \subsection{Conclusion} \label{subsec:conclusionHazelcast}
+
+Concluding, Hazelcast is a good choice for a distributed system. It is a fast and easy-to-use database system.
+It is flexible and great at storing time series or session data. However, it is difficult to enforce data validation, thus, 
+not suitable for all use cases. It is used best as a secondary database in combination with relational or other types of databases on top.
 
