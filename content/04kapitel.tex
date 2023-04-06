@@ -52,11 +52,53 @@ Document-oriented databases allow for complex data structures, with the ability 
 
 
 
-
-
 \section{Database Design}
-MongoDB is an effective NoSQL database for processing unstructured or partially structured data, which stores information in a document-oriented fashion. When using MongoDB, database architecture often entails building collections of documents, each of which has all the necessary information for a certain record or object. This strategy makes it possible to construct schemas more adaptable and does away with the necessity for predefined tables, which can be especially useful when working with data that has changing or evolving structures. As a popular option for big data applications, MongoDB's document-based approach also enables simple scaling, quick querying, and effective indexing. It does have some drawbacks, though, like a lack of transaction support and perhaps poorer performance when working with extremely complicated data structures. Overall, database design with MongoDB can provide many benefits, but it requires careful consideration of its unique features and limitations.
+MongoDB belongs to the NoSQL database subcategory. The administration of a vast volume of data is one of the main reasons for its establishment. A document is used to handle the data, and it has a number of fields. Every document can have a significantly different length from the others (\cite{mungekar_2019}). There is no specified schema to produce or develop such documents, hence their structure totally depends on how the developers program it to be (\cite{taylor_2020}).
+Ad hoc queries, indexing, workload balancing, and replication are all supported.
+Always take the requirements of the application into account when modelling the data. After that, be certain to take the type of document into account. To get the most out of heavy data that needs to be modelled, indexing the data is always necessary. Also, it's important to regularly check on the CRUD operations. Use the sharding feature to boost efficiency if there are any irregularities (\cites{taylor_2020}{mungekar_2019}).
+In addition to this, MongoDB has a number of helpful clients and drivers for most of the popular programming languages.
 
+In the following, the key components of MongoDB are further described.
+
+\subsubsection{Database}
+Similar to how RDMS uses containers for tables, this one is for collections. On the file system, every database receives a unique collection of files. Several databases can be stored on a MongoDB server (\cite{taylor_2020}).
+
+\subsubsection{Collection}
+A collection is a group of database documents. A table is what a collection would look like in an RDBMS. One database contains the full collection. Regarding collections, there are no schemas. Although different documents contained inside a collection may have different fields, most documents in a collection are intended to serve the same function or to achieve the same end result (\cite{intellipaat_2016}).
+
+\subsubsection{Document}
+A group of key-value pairs can be referred to as a document. Dynamic schemas are linked to documents. A document in a single collection does not need to have the same structure or fields, which is a benefit of dynamic schemas. A collection document's common fields can also contain a variety of data types (\cite{intellipaat_2016}).
+
+\subsubsection{Field}
+A document's name-value pair. Documents can have zero fields or more. The equivalent of columns in relational databases are fields. 
+
+\subsubsection{Replication}
+Replication is a crucial feature that protects against failures, increases data availability, and prevents data loss from one server.
+Replica sets are the basis for MongoDB's replication. A collection of mongod instances hosting the same data set is known as a replica set. The primary or main node is chosen out of all nodes. The primary node is that one. The term "secondary node" refers to all others. To preserve consistency, the primary node receives all operations from the user, and the secondary nodes are updated from the primary one using the same operation. In the event that the primary node fails, one of the secondary nodes is chosen to serve as the primary node, and the operations continue. When the downed node recovers, it becomes one of the secondary nodes in the cluster. Mongo Atlas allows us to manage our cluster of Mongo instances. The concept of horizontal scalability and instance addition is the foundation for the creation of Mongo clusters (\cite{roy_databases_2020}). 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/Replica_Sets.jpeg}
+        \caption{Replica set schematic (inspired by \cite{roy_databases_2020})}
+    \label{fig:Replica Sets}
+\end{figure}
+
+\subsubsection{Sharding}
+MongoDB uses sharding to store data across several machines. In order to spread data and operations in response to the expansion of load and demand, it employs horizontal scaling to add more computers (\cite{roy_databases_2020}).
+
+Sharding in MongoDB has 3 main components:
+
+\textbf{Shards or replica sets:} Every shard functions as a different replica set. All the info is kept there. They aim to improve the data's availability and consistency.
+
+\textbf{Configuration Servers:} They resemble the cluster managers. The metadata for the cluster is stored on these servers. Indeed, they already have the data from the cluster mapped to the shards. In order to target the appropriate shard when a query is received, query routers employ these mappings from the configuration servers.
+
+\textbf{Query Router:} Mongo entities that act as user application interfaces make up the query router. They receive user requests from the applications and provide the necessary answers to the applications. Typically, each cluster has numerous query routers to distribute load.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/sharding.jpeg}
+        \caption{Replica set schematic (inspired by \cite{mongodb_sharding})}
+    \label{fig:Sharding}
+\end{figure}
 
 \section{Advantages}
 \textbf{Flexible data model}: MongoDB uses a flexible document data model that allows you to store data in a variety of ways. This makes it easy to adapt to changing business needs and to scale your data as your application grows (\cites{mongodb-datamodels}{knowledgenile-pro-con}). 
