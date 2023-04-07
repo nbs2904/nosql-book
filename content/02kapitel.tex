@@ -48,7 +48,7 @@ specialized collections like Multi-Maps, which allow for multiple values per key
 
 Hazelcast can be used in numerous different ways, one of which would be to hold data for user sessions, an application that makes sense due to its nature 
 of persisting data only in memory and it thus being well suited for working with temporary data. Furthermore, another application of Hazelcast is 
-running it together with a data store that persists data long term, leading to an increased capacity. Additionally, Hazelcast in general is well 
+running it together with a data store that persists data long term, leading to an increased capacity. Overall Hazelcast is in general well 
 suited for applications which require a high performance and elastic scalability as those are both requirements Hazelcast fulfills due to it saving data in memory and 
 its automatic clustering \parencite{Johns.2015}. 
 
@@ -57,7 +57,7 @@ its automatic clustering \parencite{Johns.2015}.
 
 In the second section of this chapter, a hazelcast cluster will be set up, including a cluster management 
 instance. Then, some capabilities are demonstrated using a simple dataset of relational data, highlighting 
-the differences between a traditional SQL database.
+the differences between it and a traditional SQL database.
 
 \subsection{Requirements} \label{subsec:requirementsHazelcast}
 
@@ -68,7 +68,7 @@ simulating a cluster environment. The cluster manager is then accessible via por
 information about the cluster members. To fully interact with the cluster, it is necessary to install a 
 client. \textcite{Hazelcast.Clients} supports a handful of open-source APIs in multiple programming languages. 
 Within the scope of this document, the python client is 
-used in the following sections to demonstrate data import and access. The client can get installed with pip 
+used in the following sections to demonstrate data import and access. The client can be installed with pip 
 or any preferred python package manager.
 
 \subsection{Data Import} \label{subsec:dataImportHazelcast}
@@ -166,15 +166,15 @@ to access all products that contain a particular allergen.
 
 One of the advantages of Hazelcast is the high availability. Members discover each other automatically and form a cluster. 
 After the cluster is formed, members communicate with each other.  Every cluster member can become inaccessible because of network 
-failure or other events. The other cluster members cooperatively diagnose that state and immediately take over the responsibility of the failed member. Hazelcast can restore the data and provides continuous availability. 
-It also offers distributed implementation of standard collections. These implementations include Maps, Lists, Sets and others. Also, 
+failure or other events. The other cluster members cooperatively diagnose that state and immediately take over the responsibility of the failed member. Hazelcast can restore the data and provides continuous availability. \newline
+\noindent It also offers distributed implementation of standard collections. These implementations include Maps, Lists, Sets and others. Also, 
 it has a broadcast messaging system that works with publish and subscribe models. This communication works with real time at high speed. 
 Hazelcasts SQL service lets you query static and streaming data. Static data can be loaded from sources to transform and analyze it. 
 Furthermore it is possible to load and query real time streaming data as it is being generated.
 Another marked feature is that it has no dependency on disk storage. It keeps all its operational state in the dynamic random access 
 memory of the cluster. Hazelcast can conduct really quick readings and updates and save everything in memory.
-Hazelcast is also a Java application with no external dependencies which offers the same APIs and interfaces as the Java util package. 
-But there are also some disadvantages of Hazelcast. The memory sharing system can be difficult to implement and understand in the 
+Hazelcast is also a Java application with no external dependencies which offers the same APIs and interfaces as the Java util package. \newline
+\noindent But there are also some disadvantages of Hazelcast. The memory sharing system can be difficult to implement and understand in the 
 beginning. Working with the Hazelcast database is something one has to get used to. Once one has understood how everything works, it is easy to use. 
 Another disadvantage is running Hazelcast in a virtual environment. This could create a potential time adjustment and difference 
 between the CPU and the virtual environment´s adjusted system clock. When the differences go beyond certain ties, Hazelcast usually 
@@ -207,7 +207,7 @@ unavailable until the partition is resolved. \parencite{Hazelcast.05.04.2023}
 
 \subsection{Conclusion} \label{subsec:conclusionHazelcast}
 
-Concluding, Hazelcast is a good choice for a distributed system. It is a fast and easy-to-use database as well as
+In conclusion, Hazelcast is a good choice for a distributed system. It is a fast and easy-to-use database as well as
 flexible and great at storing time series or session data. However, it is difficult to enforce data validation, thus, 
 not suitable for all use cases. Hazelcast is used best as a secondary database in combination with relational or other types of databases on top.
 
