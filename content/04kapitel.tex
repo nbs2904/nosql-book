@@ -3,4 +3,149 @@
 \chapter{Mongo DB (Document)} \label{ch:mongo}
 \chapterauthor{Linus Krebes, Fabian Mujdrica, Mika Santoro, and Tom Dankel}
 
-Exercitation qui duis voluptate do esse aute. Minim deserunt ex minim sunt cupidatat est fugiat in pariatur ullamco. Enim esse voluptate nulla et sunt sint labore non ut eiusmod et. Deserunt laboris ullamco occaecat esse reprehenderit anim. Deserunt aute laboris tempor est occaecat duis in cupidatat.
+\section{Type of Database \& History}
+MongoDB was developed in 2007 by a New York-based organization 10gen which is now called MongoDB Inc. MongoDB was developed as a PAAS (Platform as a service) initially.
+%https://bytescout.com/blog/2019/09/mongodb-history-and-advantages.html#2
+
+Due to the need or idea of the database processing data in large amounts, according to Dwight, the database was named MongoDB, a word obtained from the term “humongous.”
+%https://bytescout.com/blog/2019/09/mongodb-history-and-advantages.html#2
+Nowadays MongoDB is the most popular Document-oriented Database in use and the fith most popular database management system worldwide
+%https://www.statista.com/statistics/809750/worldwide-popularity-ranking-database-management-systems/#:~:text=As%20of%20February%202023%2C%20the,rounded%20out%20the%20top%20three.
+
+Document-oriented databases, also known as document stores, are a type of NoSQL database that stores data as documents. Each document has a unique key and serves as the value in a key-value store. The main difference between key-value and document stores is that the latter contains metadata that provides structure to the data. 
+%https://www.digitalocean.com/community/tutorials/a-comparison-of-nosql-database-management-systems-and-models
+
+Document databases typically have an API or query language that allows developers to execute the CRUD (create, read, update, and delete) operations.
+
+\textbf{Create:} Documents can be created in the database. Each document has a unique identifier.
+
+\textbf{Read:} Documents can be read from the database. The API or query language allows developers to query for documents using their unique identifiers or field values. Indexes can be added to the database in order to increase read performance.
+
+\textbf{Update:} Existing documents can be updated — either in whole or in part.
+
+\textbf{Delete:} Documents can be deleted from the database.\\
+%https://www.mongodb.com/document-databases
+
+
+
+
+
+
+Document-oriented databases allow for complex data structures, with the ability to nest documents within other documents. Unlike relational databases that spread object information across multiple tables, document stores can store all data for an object in a single document. These databases typically store data as JSON, BSON, XML, or YAML documents and can use SQL, full-text search, or a native query language for data retrieval. Document stores are popular in e-commerce, blogging, analytics, and content management systems due to their flexible schema and scalability. Sharding is a common horizontal scaling strategy used to scale document stores, which are useful for storing large amounts of unrelated, complex information with varying structures.
+%https://www.digitalocean.com/community/tutorials/a-comparison-of-nosql-database-management-systems-and-models
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/Document_Database.png}
+        \caption{Document Database vs SQL based Database}
+    \label{fig:Software pricing Overview}
+\end{figure}
+%https://blog.usu.com/hs-fs/hubfs/NoSQL.png?width=1198&name=NoSQL.png
+
+\section{differences document databases vs relational databases}
+\textbf{The intuitiveness of the data model:} Working with documents is much more intuitive since they correspond to objects in code. Unlike with relational databases, there is no need to split data across tables, perform complex joins, or use a separate Object-Relational Mapping (ORM) layer. Instead, data that is typically accessed together is stored together, resulting in less code for developers and improved performance for end users.
+
+\textbf{The ubiquity of JSON documents:} The use of JSON as a standard for data exchange and storage is now widely accepted. JSON documents are lightweight, easy to read by humans, and don't rely on any specific programming language. These documents can represent any type of data model, allowing developers to structure data in the format that best suits their application, whether that's rich objects, key-value pairs, tables, geospatial and time-series data, or graphs consisting of nodes and edges.
+
+\textbf{The flexibility of the schema:} Document schemas in document databases are both dynamic and self-describing, which eliminates the need for developers to predefine them in the database. As a result, the structure of fields in documents may differ from one document to the next. Developers are also free to modify the structure at any time, avoiding any disruptions caused by schema migrations. Certain document-oriented databases come equipped with schema validation, which allows developers to enforce rules related to document structures if they so choose.
+
+%https://www.mongodb.com/document-databases
+
+
+
+\section{Database Design}
+MongoDB belongs to the NoSQL database subcategory. The administration of a vast volume of data is one of the main reasons for its establishment. A document is used to handle the data, and it has a number of fields. Every document can have a significantly different length from the others (\cite{mungekar_2019}). There is no specified schema to produce or develop such documents, hence their structure totally depends on how the developers program it to be (\cite{taylor_2020}).
+Ad hoc queries, indexing, workload balancing, and replication are all supported.
+Always take the requirements of the application into account when modelling the data. After that, be certain to take the type of document into account. To get the most out of heavy data that needs to be modelled, indexing the data is always necessary. Also, it's important to regularly check on the CRUD operations. Use the sharding feature to boost efficiency if there are any irregularities (\cites{taylor_2020}{mungekar_2019}).
+In addition to this, MongoDB has a number of helpful clients and drivers for most of the popular programming languages.
+
+In the following, the key components of MongoDB are further described.
+
+\subsubsection{Database}
+Similar to how RDMS uses containers for tables, this one is for collections. On the file system, every database receives a unique collection of files. Several databases can be stored on a MongoDB server (\cite{taylor_2020}).
+
+\subsubsection{Collection}
+A collection is a group of database documents. A table is what a collection would look like in an RDBMS. One database contains the full collection. Regarding collections, there are no schemas. Although different documents contained inside a collection may have different fields, most documents in a collection are intended to serve the same function or to achieve the same end result (\cite{intellipaat_2016}).
+
+\subsubsection{Document}
+A group of key-value pairs can be referred to as a document. Dynamic schemas are linked to documents. A document in a single collection does not need to have the same structure or fields, which is a benefit of dynamic schemas. A collection document's common fields can also contain a variety of data types (\cite{intellipaat_2016}).
+
+\subsubsection{Field}
+A document's name-value pair. Documents can have zero fields or more. The equivalent of columns in relational databases are fields. 
+
+\subsubsection{Replication}
+Replication is a crucial feature that protects against failures, increases data availability, and prevents data loss from one server.
+Replica sets are the basis for MongoDB's replication. A collection of mongod instances hosting the same data set is known as a replica set. The primary or main node is chosen out of all nodes. The primary node is that one. The term "secondary node" refers to all others. To preserve consistency, the primary node receives all operations from the user, and the secondary nodes are updated from the primary one using the same operation. In the event that the primary node fails, one of the secondary nodes is chosen to serve as the primary node, and the operations continue. When the downed node recovers, it becomes one of the secondary nodes in the cluster. Mongo Atlas allows us to manage our cluster of Mongo instances. The concept of horizontal scalability and instance addition is the foundation for the creation of Mongo clusters (\cite{roy_databases_2020}). 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/Replica_Sets.jpeg}
+        \caption{Replica set schematic (inspired by \cite{roy_databases_2020})}
+    \label{fig:Replica Sets}
+\end{figure}
+
+\subsubsection{Sharding}
+MongoDB uses sharding to store data across several machines. In order to spread data and operations in response to the expansion of load and demand, it employs horizontal scaling to add more computers (\cite{roy_databases_2020}).
+
+Sharding in MongoDB has 3 main components:
+
+\textbf{Shards or replica sets:} Every shard functions as a different replica set. All the info is kept there. They aim to improve the data's availability and consistency.
+
+\textbf{Configuration Servers:} They resemble the cluster managers. The metadata for the cluster is stored on these servers. Indeed, they already have the data from the cluster mapped to the shards. In order to target the appropriate shard when a query is received, query routers employ these mappings from the configuration servers.
+
+\textbf{Query Router:} Mongo entities that act as user application interfaces make up the query router. They receive user requests from the applications and provide the necessary answers to the applications. Typically, each cluster has numerous query routers to distribute load.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{images/sharding.jpeg}
+        \caption{Replica set schematic (inspired by \cite{mongodb_sharding})}
+    \label{fig:Sharding}
+\end{figure}
+
+\section{Advantages}
+\textbf{Flexible data model}: MongoDB uses a flexible document data model that allows you to store data in a variety of ways. This makes it easy to adapt to changing business needs and to scale your data as your application grows (\cites{mongodb-datamodels}{knowledgenile-pro-con}). 
+
+\textbf{High scalability}: MongoDB is designed to handle large amounts of data and high traffic loads. With sharding it can be easily scaled horizontally by adding more nodes to a cluster (\cites{mongodb-scalability}{dataflair_2018}). Furthermore, replica sets enable high availability, handling of redundancy/failover, and less read operation bottlenecks (\cite{mongodb-replica-sets}).
+
+\textbf{High performance}: MongoDB uses a number of performance optimizations such as memory-mapped files, asynchronous I/O, and indexing to provide high throughput and low latency (\cites{mongodb-performance}{knowledgenile-pro-con}).
+
+\textbf{Rich query language}: MongoDB provides a powerful query language that supports a variety of operators and expressions for filtering, sorting, and aggregating data (\cite{mongodb-query}).
+
+\textbf{Easy Environment and Setup}: MongoDB requires little setup time and minimal effort to use. Modern JavaScript frameworks are available, and it is quicker and simpler to set up than RDBMS.
+Because of this functionality, users can choose NoSQL architectures with confidence. In addition, compared to SQL databases, it offers faster options for learning and training (\cites{knowledgenile-pro-con}{jamsheer_2019}). 
+
+\section{Disadvantages}
+\textbf{Lack of ACID compliance}: MongoDB is a NoSQL database and does not support ACID (atomicity, consistency, isolation, durability) transactions. While it does provide atomicity at the document level, it does not support transactions that span multiple documents (\cites{mongodb-transactions}{knowledgenile-pro-con}).
+
+\textbf{Limited Data Size}: MongoDB only permits documents with a maximum size of 16 MB. For files larger than 16 MB they refer to the GridFS API (\cite{mongodb-documents}).
+
+\textbf{No schema enforcement}: MongoDB does not enforce a strict schema, which can lead to data inconsistencies if the data is not carefully structured and validated.
+
+\textbf{Higher memory usage}: MongoDB needs a lot of storage since it lacks join functionality, which causes data duplication. The amount of redundant data keeps increasing, which requires extra memory space. (\cite{knowledgenile-pro-con}).
+
+\textbf{Complexity}: MongoDB's flexible data model and lack of strict schema enforcement can make it more complex to design and manage compared to traditional databases. It may also require more expertise to optimize performance and scale effectively.
+
+\pagebreak
+\section{MongoDB and the CAP-Theorem}
+\section*{CAP-Theorem}
+The \acs{CAP}-Theorem was proofed by Gilbert and Lynch in 2002 (\cite{brewer:2002}). They published an axiomatic indirect proof of Brewers conjecture. Eric Brewer presented his conjecture in a \acs{PODC} talk at the University of Carolina in 2000 (\cite{brewer:2000}). The \acs{CAP}-Theorem states that it is not possible to guarantee consistency, availability and partition tolerance simultaneously in a distributed system. It is only possible to satisfy two of these properties simultaneously. (\cite[p.~1]{brewer:2002})
+\subsection*{Consistency}
+To meet this criterion, the distributed system must ensure consistency of data after a completed transaction. Therefore, in a distributed system with replicated data, all replicated data must be updated after a transaction is completed. This way, all nodes have the same data at any point in time. (\cite[p.~2ff.]{brewer:2002})
+\subsection*{Availability}
+Availability of a distributed system means that all requests received by a non-failing node in the system gets a response. It means in combination with the need for partition tolerance that every request must terminate, even with the occurrence of severe network failures. (\cite[p.~3]{brewer:2002})
+\subsection*{Partition Tolerance}
+A partition tolerant network may only react incorrectly in the event of a total failure of the network. Therefore, the network may lose any number of messages between nodes and must still function correctly. All messages between two nodes in two different components are lost when the network is partitioned. (\cite[p.~3ff.]{brewer:2002})
+\pagebreak
+\section*{Proof}
+Assume a consistent, available and partition tolerant algorithm executed in a partitioned distributed system with a value v$_{0}$. Due to the message loss, a write with v$_{1}$ on v$_{0}$ in one partition is not recognized in the other partition. A read in the other partition on the variable will return v$_{0}$. This contradicts the Consistency property, because the return must be v$_{1}$, not v$_{0}$. Due to availability and partition tolerance the network must respond although the message loss. The contradiction above proofs that no distributed system can guarantee consistency, availability and partition tolerance. (\cite[p.~4ff.]{brewer:2002})
+\section*{Consistency vs. Availability (vs. Partition Tolerance)}
+The \acs{CAP}-Theorem refers to distributed systems. For these, choosing between two properties that do not include partition tolerance does not make sense. In this case, the \acs{CAP}-Theorem means choosing between consistency of data or availability of the system.
+\subsection*{Consistency and Partition Tolerance (CP)}
+A consistent and partition tolerant network responds to partitions by losing availability. The nodes that are unreachable and therefore not guaranteed to be consistent are simply unavailable until connectivity is reenabled and consistency is guaranteed to be restored. (\cite[p.~6]{brewer:2002})
+\subsection*{Availability and Partition Tolerance (AP)}
+An available and partition tolerant network responds to a partition with loss of consistency. All nodes remain available, but the response is not necessarily consistent. Responses are consistent again after connectivity is restored. (\cite[p.~6]{brewer:2002})
+\pagebreak
+\section*{Position of MongoDB in CAP}
+MongoDB is a consistent and partition tolerant database (\acs{CP}). MongoDB chooses consistency over availability if a partition occurs. The replica sets are responsible for this behavior. (\cite{stackoverflow:2023})
+The primary node of a replica set is the only node that accepts write requests. Normally, read requests are also directed to the primary node. A network partition detaches any number of nodes. The disconnected nodes can no longer communicate with the remaining nodes. A new primary node is elected only if the primary node can reach only a minority of nodes because the primary node is not in the majority. The election of a new primary node takes a few seconds. This process makes the system unavailable for write and read requests for a short time to ensure consistency.\newline
+Increasing the availability of the system is possible only if the strong consistency is broken. In read preference mode, it is allowed to read from secondary nodes. The primary node is still the only node allowed to accept write requests. In case of partitioning, it is possible that the detached secondary nodes have stale data because the message with new data from the primary node has been lost.\newline
+To improve the weakened consistency, pass a write option. A write request is successful only if the primary node has received as many acknowledges as defined/acknowledges from at least half of the nodes. This is called eventual consistency (a tradeoff between consistency and availability). Despite the increased availability for read requests, writes are still not possible if the primary node is not available or is currently in the election phase. It should be noted that increased availability means decreased consistency (eventual consistency), and the focus remains on consistency and partition tolerance. 
+(\cite{katwal:2020})
