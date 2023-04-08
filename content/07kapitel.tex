@@ -2,4 +2,31 @@
 
 \chapter{Conclusion} \label{ch:conclusion}
 
-Exercitation qui duis voluptate do esse aute. Minim deserunt ex minim sunt cupidatat est fugiat in pariatur ullamco. Enim esse voluptate nulla et sunt sint labore non ut eiusmod et. Deserunt laboris ullamco occaecat esse reprehenderit anim. Deserunt aute laboris tempor est occaecat duis in cupidatat.
+In this comprehensive analysis of various NoSQL database implementations, the study addressed the research question, "What are advantages and disadvantages of current open source NoSQL DB with a theoretical foundation of the CAP theorem (Brewer, 2000) and task/application-oriented recommendations". We examined an in-depth analysis of key-value databases, document stores, and graph databases.
+\section*{Key Takeaways}
+Neo4j is a graph database designed to store and query highly connected data. The graph data model is made up of nodes, relationships, and properties that represent the stored data. Neo4j uses Cypher, a declarative language optimized for graph databases, for querying. This language enables users to express complex queries concisely and intuitively. Neo4j is a popular choice for various use cases, such as social networks, recommendation engines, fraud detection, and knowledge graphs.
+
+Elasticsearch is a search and analysis engine. It is based on Apache Lucene and was developed for real-time search and data analysis. With its distributed and RESTful design, Elasticsearch is horizontally scalable and supports RESTful APIs for data access. With full-text search, Elasticsearch offers powerful search capabilities, including faceted search, filtering, and ranking. The following use cases for Elasticsearch emerge from these key points: log and event data analysis, full-text search, and monitoring and alerting systems.
+
+Hazelcast offers an In-memory data grid (IMDG), which provides distributed data storage and computation in memory for low-latency access and enables users to store data in key-value pairs. Furthermore, data in Hazelcast is automatically replicated across nodes to ensure fault tolerance, and nodes are added automatically to the cluster, thus supporting horizontal scaling and enabling Hazelcast to handle increased loads. Finally, Hazelcast also offers capabilities like distributed computation, caching, and messaging systems. It enables users to use them to develop use cases like real-time processing, in-memory caching, and distributed computing applications. 
+
+MongoDB, together with Couchbase, belongs to the class of document-based databases. It is a general-purpose database that stores data in a flexible, JSON-like format (BSON). It supports a dynamic schema, making it easy to adapt the data model as requirements evolve. Horizontal scaling is accomplished by sharding to distribute data across multiple nodes for improved performance and fault tolerance. 
+
+Couchbase combines the advantages of CouchDB and Membase. Like MongoDB, it is optimized for concurrent read and write operations and supports JSON documents. With its SQL-like N1QL query language, it greatly simplifies the migration process of relational databases and allows developers to quickly adapt to Couchbase. It uses clusters and buckets to store data and supports data replication across these clusters for high availability and fault tolerance. 
+\section*{Discussion (CAP)}
+Neo4j can be classified as a consistent and available (CA) database for personal use. Because the enterprise version supports sharding, it can also focus on availability and partition tolerance (AP). 
+The CAP theorem doesn’t really apply to Elasticsearch because Elasticsearch isn't generally used as a linearized register. That said, Elasticsearch would most likely prefer Partition Tolerance and Consistency over Availability (CP), in the sense that acknowledged writes should never be lost but that some writes may go unacknowledged or may fail. 
+
+Hazelcast delivers mainly availability and partition tolerance (AP). In the event of a network partition, Hazelcast prioritizes partition tolerance and availability. Furthermore, Hazelcast can also be used to focus on consistency and partition tolerance (CP), which leads to non-consistent members being made non-available whenever a partition appears to ensure consistency. 
+
+It is challenging to classify Couchbase strictly into one category because the CAP theorem only takes a superficial view of the system and often cannot address specific aspects. In a single cluster system, consistency and partition tolerance (CP) are the most important characteristics of Couchbase. However, in multi-cluster systems, Couchbase uses its Cross-Data-Center Replication (XDCR) feature to guarantee availability at the cost of data consistency (AP).
+
+MongoDB is a CP database that prioritizes consistency over availability. It achieves this through its use of replica sets, with a primary node handling both writes and reads and secondary nodes acting as duplicates. 
+\section*{Outlook}
+This paper demonstrates that the NoSQL database landscape is quite diverse in terms of the CAP theorem. Compared to traditional SQL databases, the NoSQL space is more versatile and adaptable to specific use cases. 
+
+Contemporary applications and data-driven organizations particularly benefit from NoSQL databases. The increasing prevalence of unstructured and semi-structured data necessitates flexible and adaptive database schemas. This has led to the rise of various types of NoSQL databases, such as document, graph, and key-value databases, as well as those supporting multiple database models.
+
+One significant challenge when working with NoSQL databases is maintaining consistency. As a result, it is expected that future developments will focus on improving consistency across these systems. Finally, data privacy and security will be an area of continued emphasis. Handling large amounts of confidential data is a primary business concern, and ensuring a secure experience and proper management of user data is crucial for the success of NoSQL databases.
+
+All in all, NoSQL databases offer a flexible, scalable, and high-performance alternative to traditional relational databases, enabling businesses to handle diverse and complex data sets with unparalleled agility in the ever-evolving digital landscape
